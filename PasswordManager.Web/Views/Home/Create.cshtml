@@ -1,0 +1,65 @@
+@model PasswordManager.Web.Models.Password.PasswordCreateModel
+
+@{
+    ViewBag.Title = "Create Password";
+    Layout = "_Layout";
+}
+
+<h2>Create Password</h2>
+<div class="row">
+   <div class="col-md-8">
+      <section id="createForm">
+         @using (Html.BeginForm("Create", "Home", null, FormMethod.Post, null, new { @class = "form-horizontal", role = "form" }))
+         {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+               @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+               <div class="col-md-10">
+                  @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="form-group">
+               @Html.LabelFor(m => m.URL, new { @class = "col-md-2 control-label" })
+               <div class="col-md-10">
+                  @Html.TextBoxFor(m => m.URL, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(m => m.URL, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="form-group">
+               @Html.LabelFor(m => m.CategoryId, "Category", new { @class = "col-md-2 control-label" })
+               <div class="col-md-10">
+                  @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "Value", "Text"), "Select Category", new { @class = "form-control" })
+                  @Html.ValidationMessageFor(m => m.URL, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="form-group">
+               @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+               <div class="col-md-10">
+                  @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="form-group">
+               @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+               <div class="col-md-10">
+                  @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="Log in" class="btn btn-dark" />
+               </div>
+            </div>
+            <p>
+               @Html.ActionLink("Register", "Register")
+            </p>
+         }
+      </section>
+   </div>
+</div>
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

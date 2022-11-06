@@ -1,0 +1,38 @@
+@model IEnumerable<PasswordManager.Web.Models.Category.CategoryModel>
+
+@{
+    ViewBag.Title = "Category List";
+    Layout = "_Layout";
+}
+
+<h2>Category List</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@if (Model.Any())
+{
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div>You did not create any record!</div>
+}

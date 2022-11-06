@@ -1,0 +1,30 @@
+@model PasswordManager.Web.Models.Category.CategoryModel
+
+@{
+    ViewBag.Title = "Category Delete";
+    Layout = "_Layout";
+}
+
+<h2>Category Delete</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id);
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-dark"/>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Return to List", "Index")
+    </div>
+</div>
