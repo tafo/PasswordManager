@@ -49,8 +49,8 @@ public class CategoryController : Controller
 
         try
         {
-            var category = model.ToEntity();
-            await _context.Categories.AddAsync(category);
+            var entity = model.ToEntity();
+            await _context.Categories.AddAsync(entity);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

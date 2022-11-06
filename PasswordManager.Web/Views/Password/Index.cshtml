@@ -5,18 +5,26 @@
     Layout = "_Layout";
 }
 
-<h2>Şifrelerim</h2>
+<h2>My Passwords</h2>
 @if (!string.IsNullOrEmpty(ViewBag.Message))
 {
     <p>You have to create a category</p>
     @Html.ActionLink("Create Category", "Create", "Category")
-    ;
 }
 else
 {
     <p>
         <a asp-action="Create">Create New</a>
     </p>
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Filter : <input type="text" name="filter" value="@ViewData["filter"]" />
+                <input type="submit" value="Search" class="btn btn-dark" /> |
+                <a asp-action="Index">Back to Full List</a>
+            </p>
+        </div>
+    </form>
     @if (Model.Any())
     {
         <table>
@@ -66,6 +74,6 @@ else
     }
     else
     {
-        <div>You did not create any record!</div>
+        <div>You do not have any password!</div>
     }
 }

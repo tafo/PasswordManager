@@ -31,9 +31,8 @@ public class PasswordManagerContext : DbContext
             {
                 Id = 1,
                 Email = "admin@domain.com",
-                PasswordHash = _passwordHasher.HashPassword("8MggZmuNbF")
+                PasswordHash = _passwordHasher.HashPassword("123")
             });
-
         });
         
         modelBuilder.Entity<CategoryEntity>(entityModelBuilder =>
@@ -46,7 +45,15 @@ public class PasswordManagerContext : DbContext
 
         modelBuilder.Entity<PasswordEntity>(entityModelBuilder =>
         {
-            
+            entityModelBuilder.ToTable("Password");
+            entityModelBuilder.HasKey(e => e.Id);
+            entityModelBuilder.Property(e => e.Id).ValueGeneratedOnAdd();
+            entityModelBuilder.Property(e => e.Name).IsRequired().HasMaxLength(50);
+            entityModelBuilder.Property(e => e.URL).IsRequired();
+            entityModelBuilder.Property(e => e.Username).IsRequired().HasMaxLength(50);
+            entityModelBuilder.Property(e => e.Password).IsRequired().HasMaxLength(50);
         });
+        
+        base.OnModelCreating(modelBuilder);
     }
 }

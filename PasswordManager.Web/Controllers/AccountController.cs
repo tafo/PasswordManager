@@ -35,6 +35,7 @@ public class AccountController : Controller
         _passwordHasher = passwordHasher;
         _accountCreateValidator = accountValidator;
         _accountRegisterValidator = accountRegisterValidator;
+        _context.Database.EnsureCreated();
     }
     
     [HttpGet]
@@ -53,11 +54,11 @@ public class AccountController : Controller
             return View("Login", model);
         }
 
-        var account = await _context.Accounts.SingleOrDefaultAsync(x => x.Email == model.Email && x.PasswordHash == _passwordHasher.HashPassword(model.Password));
+        var account = await _context.Accounts.SingleOrDefaultAsync(x => x.Email == model.Email && _passwordHasher.VerifyHashedPassword(model.Password, x.PasswordHash));
         if (account != null)
         {
             HttpContext.Session.SetString("email", account.Email);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Password");
         }
 
         ViewBag.msg = "Invalid credentials";
@@ -86,7 +87,7 @@ public class AccountController : Controller
             await _context.Accounts.AddAsync(account);
             await _context.SaveChangesAsync();
             HttpContext.Session.SetString("email", account.Email);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Password");
         }
         catch (DataException)
         {
